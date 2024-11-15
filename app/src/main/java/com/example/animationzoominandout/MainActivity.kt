@@ -1,4 +1,4 @@
-package com.example.atelier_animations
+package com.example.animationzoominandout
 
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder

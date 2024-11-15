@@ -1,23 +1,38 @@
-package com.example.animationzoominandout
+package com.example.atelier_animations
 
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
+import android.view.animation.AnimationUtils
 
-class MainActivity: AppCompatActivity() {
-    lateinitvar card: CardView
-    lateinitvar rotateButton: Button
-    lateinitvar scale: Button
-    lateinitvar translateButton: Button
-    lateinitvar SlideUp: Button
-    lateinitvar SlideDown: Button
-    lateinitvar SlideLeft: Button
-    lateinitvar SlideRight: Button
-    lateinitvar fadeIn: Button
-    lateinitvar fadeOut: Button
-    lateinitvar zoomIn: Button
-    lateinitvar zoomOut: Button
-    overridefun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedStateRegistry)
+
+
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var card: CardView
+    lateinit var rotateButton: Button
+    lateinit var scale: Button
+    lateinit var translateButton: Button
+    lateinit var SlideUp: Button
+    lateinit var SlideDown: Button
+    lateinit var SlideLeft: Button
+    lateinit var SlideRight: Button
+    lateinit var fadeIn: Button
+    lateinit var fadeOut: Button
+    lateinit var zoomIn: Button
+    lateinit var zoomOut: Button
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+
         card= findViewById(R.id.imgvw)
         rotateButton= findViewById<Button>(R.id.Rotate)
         translateButton= findViewById<Button>(R.id.translate)
@@ -30,16 +45,17 @@ class MainActivity: AppCompatActivity() {
         zoomIn= findViewById<Button>(R.id.zoomIn)
         zoomOut= findViewById<Button>(R.id.zoomOut)
         scale= findViewById<Button>(R.id.Scale)
-        zoomOut.setOnClickListener {
-            val animZoomOut = AnimationUtils.loadAnimation(this,
-                R.anim.zoom_out)
+
+        zoomOut.setOnClickListener{
+            val animZoomOut = AnimationUtils.loadAnimation(this, R.anim.zoom_out)
             card.startAnimation(animZoomOut)
         }
-        SlideUp.setOnClickListener {
-            val slideUp = AnimationUtils.loadAnimation(this,
-                R.anim.slide_up)
+
+        SlideUp.setOnClickListener{
+            val slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up)
             card.startAnimation(slideUp)
         }
+
         SlideDown.setOnClickListener {
             val slide_down = AnimationUtils.loadAnimation(this,
                 R.anim.slide_down)
@@ -55,6 +71,7 @@ class MainActivity: AppCompatActivity() {
                 R.anim.slide_right)
             card.startAnimation(slide_right)
         }
+
         fadeIn.setOnClickListener{
             val animZoomIn= AnimationUtils.loadAnimation(this,
                 R.anim.fade_in)
@@ -80,3 +97,29 @@ class MainActivity: AppCompatActivity() {
             scaler()
         }
     }
+
+
+    private fun rotater() {
+        val animator= ObjectAnimator.ofFloat(card, View.ROTATION, -360f, 0f)
+        animator.duration= 1000
+        animator.start()
+    }
+    private fun translater() {
+        val animator= ObjectAnimator.ofFloat(card, View.TRANSLATION_X, 200f)
+        animator.repeatCount= 1
+        animator.duration= 1500
+        animator.repeatMode= ObjectAnimator.REVERSE
+        animator.start()
+    }
+    private fun scaler() {
+        val scaleX= PropertyValuesHolder.ofFloat(View.SCALE_X, 4f)
+        val scaleY= PropertyValuesHolder.ofFloat(View.SCALE_Y, 4f)
+        val animator= ObjectAnimator.ofPropertyValuesHolder(
+            card, scaleX, scaleY)
+        animator.repeatCount= 1
+        animator.repeatMode= ObjectAnimator.REVERSE
+        animator.start()
+    }
+
+
+}
